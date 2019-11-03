@@ -40,12 +40,11 @@ class eight_puzzle:
             parent_node = frontier.get()
             print('best state to expand: g(n):', parent_node[1].cost, 'h(n):', parent_node[1].heuristic)
             if np.array_equal(parent_node[1].state, goal):
-                print(frontier.qsize())
                 return 'goal found!', amount_of_nodes, max
             seen.add(parent_node)
             amount_of_nodes += 1
             for child_node in self.make_children(parent_node[1], self.find_blank(parent_node[1])):
-                if child_node not in seen:
+                if (child_node.heuristic + child_node.cost, child_node) not in seen:
                     frontier.put((child_node.heuristic + child_node.cost, child_node))
 
     # https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
@@ -68,7 +67,7 @@ class eight_puzzle:
         return [i for i in children if i]
 
     def move_up(self, current_state, position):
-        update_state = np.copy(current_state.state)
+        update_state = copy.deepcopy(current_state.state)
         new_node = TreeNode(update_state)
         new_node.cost = copy.copy(current_state.cost)
 
@@ -87,7 +86,7 @@ class eight_puzzle:
         return new_node
 
     def move_down(self, current_state, position):
-        update_state = np.copy(current_state.state)
+        update_state = copy.deepcopy(current_state.state)
         new_node = TreeNode(update_state)
         new_node.cost = copy.copy(current_state.cost)
 
@@ -105,7 +104,7 @@ class eight_puzzle:
         return new_node
 
     def move_left(self, current_state, position):
-        update_state = np.copy(current_state.state)
+        update_state = copy.deepcopy(current_state.state)
         new_node = TreeNode(update_state)
         new_node.cost = copy.copy(current_state.cost)
 
@@ -124,7 +123,7 @@ class eight_puzzle:
         return new_node
 
     def move_right(self, current_state, position):
-        update_state = np.copy(current_state.state)
+        update_state = copy.deepcopy(current_state.state)
         new_node = TreeNode(update_state)
         new_node.cost = copy.copy(current_state.cost)
 
@@ -172,14 +171,19 @@ class TreeNode:
         return hash(np.array2string(self.state))
 
 
-"""        new_node = copy.deepcopy(current_state)
-        update_state = new_node.state"""
-
 # Here is the format of the puzzle states:
 init_state = np.array([[8, 7, 1],
                        [6, 0, 2],
                        [5, 4, 3]])
 
+"""init_state = np.array([[0, 1, 2],
+                       [4, 5, 3],
+                       [7, 8, 6]])
+"""
+"""init_state = np.array([[1, 7, 3],
+                       [8, 0, 5],
+                       [4, 6, 2]])
+"""
 goal = np.array([[1, 2, 3],
                  [4, 5, 6],
                  [7, 8, 0]])
@@ -195,5 +199,5 @@ print('amount of nodes is', amount)
 print('max is', max)
 
 # What to do next:
-# For some reason, the oh boy combo takes forever.
-# Easier combinations get finished.
+# Maybe the costs are getting put into the priority queue incorrectly.
+# check out what the costs are
