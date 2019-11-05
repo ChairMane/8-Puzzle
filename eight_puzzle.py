@@ -1,6 +1,7 @@
 from queue import PriorityQueue
 import numpy as np
 import copy
+import TreeNode
 import time
 
 class eight_puzzle:
@@ -72,7 +73,7 @@ class eight_puzzle:
 
     def move_up(self, current_state, position):
         update_state = copy.deepcopy(current_state.state)
-        new_node = TreeNode(update_state)
+        new_node = TreeNode.TreeNode(update_state)
         new_node.cost = copy.copy(current_state.cost)
 
         if position[0] == 0:
@@ -91,7 +92,7 @@ class eight_puzzle:
 
     def move_down(self, current_state, position):
         update_state = copy.deepcopy(current_state.state)
-        new_node = TreeNode(update_state)
+        new_node = TreeNode.TreeNode(update_state)
         new_node.cost = copy.copy(current_state.cost)
 
         if position[0] == 2:
@@ -109,7 +110,7 @@ class eight_puzzle:
 
     def move_left(self, current_state, position):
         update_state = copy.deepcopy(current_state.state)
-        new_node = TreeNode(update_state)
+        new_node = TreeNode.TreeNode(update_state)
         new_node.cost = copy.copy(current_state.cost)
 
         if position[1] == 0:
@@ -128,7 +129,7 @@ class eight_puzzle:
 
     def move_right(self, current_state, position):
         update_state = copy.deepcopy(current_state.state)
-        new_node = TreeNode(update_state)
+        new_node = TreeNode.TreeNode(update_state)
         new_node.cost = copy.copy(current_state.cost)
 
         if position[1] == 2:
@@ -144,68 +145,6 @@ class eight_puzzle:
         new_node.parent = current_state
         return new_node
 
-
-# Tree Nodes that hold states, where each state has a list of children
-# Visually, one list of children acts as a level under the parent
-#                          parent
-#                           /  \
-#                      [child, child]
-#                       /   |  |   \
-#                  [children]  [children]
-# _____________________________________________________________________
-class TreeNode:
-    def __init__(self, state):
-        self.state = state
-        self.cost = 0
-        self.heuristic = 0
-        self.parent = None
-        self.children = []
-
-    def __eq__(self, other):
-        if isinstance(other, self.__class__):
-            return self.cost + self.heuristic == other.cost + other.heuristic
-        return NotImplemented
-
-    def __lt__(self, other):
-        if isinstance(other, self.__class__):
-            return self.cost + self.heuristic < other.cost + other.heuristic
-        return NotImplemented
-
-    def __hash__(self):
-        return hash(np.array2string(self.state))
-
-
-# Here is the format of the puzzle states:
-init_state = np.array([[8, 7, 1],
-                       [6, 0, 2],
-                       [5, 4, 3]])
-
-"""init_state = np.array([[0, 1, 2],
-                       [4, 5, 3],
-                       [7, 8, 6]])
-"""
-"""init_state = np.array([[1, 7, 3],
-                       [8, 0, 5],
-                       [4, 6, 2]])
-"""
-"""init_state = np.array([[3, 2, 8],
-                       [4, 5, 6],
-                       [7, 1, 0]])
-"""
-"""goal = np.array([[1, 2, 3],
-                 [4, 5, 6],
-                 [7, 8, 0]])
-t0 = time.time()
-root = TreeNode(init_state)
-puzzle = eight_puzzle(root, goal, 3)
-#print(puzzle.misplaced_heuristic(init_state))
-results, amount, max = puzzle.search(root)
-t1 = time.time()
-total = t1-t0
-print(results)
-print('total amount of time in seconds', total)
-print('amount of nodes is', amount)
-print('max is', max)"""
 if __name__ == '__main__':
     print('Enter the heuristic you would like to play with:')
     print('1. No heuristic (Uniform Cost Search)')
@@ -225,7 +164,7 @@ if __name__ == '__main__':
     input_array = np.array(list(map(int, input().split())))
     initial_state = np.vstack((initial_state, input_array))
     
-    root = TreeNode(initial_state)
+    root = TreeNode.TreeNode(initial_state)
     puzzle = eight_puzzle(root, goal_state, heuristic_choice)
     if not puzzle.is_solveable(initial_state):
         print('This problem\n', initial_state, '\nis unsolvable. \nTry again.')
