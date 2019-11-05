@@ -37,14 +37,16 @@ class eight_puzzle:
         max = frontier.qsize()
         amount_of_nodes = 1
         seen = set()
+        print('Expanding state\n', initial_node.state)
         while not frontier.empty():
             if max < frontier.qsize():
                 max = frontier.qsize()
             parent_node = frontier.get()
             print('best state to expand: g(n):', parent_node[1].cost, 'h(n):', parent_node[1].heuristic)
-            print(parent_node[1].state)
+            print(parent_node[1].state, 'Expanding this node')
+            depth = parent_node[1].cost
             if np.array_equal(parent_node[1].state, self.goal_state):
-                return 'Goal Reached!', amount_of_nodes, max
+                return 'Goal Reached!', depth, amount_of_nodes, max
             seen.add(str(parent_node[1].state))
             amount_of_nodes += 1
             for child_node in self.make_children(parent_node[1], self.find_blank(parent_node[1])):
@@ -145,7 +147,7 @@ class eight_puzzle:
         new_node.parent = current_state
         return new_node
 
-if __name__ == '__main__':
+"""if __name__ == '__main__':
     print('Enter the heuristic you would like to play with:')
     print('1. No heuristic (Uniform Cost Search)')
     print('2. Misplaced Tile Heuristic')
@@ -169,7 +171,8 @@ if __name__ == '__main__':
     if not puzzle.is_solveable(initial_state):
         print('This problem\n', initial_state, '\nis unsolvable. \nTry again.')
     else:
-        results, node_amount, max_queue = puzzle.search(root)
+        results, depth, node_amount, max_queue = puzzle.search(root)
         print(results)
-        print('Amount of nodes expanded:', node_amount)
-        print('Maximum size of queue:', max_queue)
+        print('To solve this problem the search algorithm expanded a total of', node_amount, 'nodes.')
+        print('The maximum number of nodes in the queue at any one time was', max_queue, '.')
+        print('The depth of the goal was', depth)"""
