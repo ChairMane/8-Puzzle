@@ -13,6 +13,7 @@ goal = np.array([[1, 2, 3],
 tests = samples.samples()
 results_from_tests = {}
 lists = tests.fill_list()
+write_to = open('stat_results.txt', 'w')
 for problem in tests.fill_list():
     difficulty = problem[0]
     results_from_tests[difficulty] = {}
@@ -33,9 +34,12 @@ for difficulty in results_from_tests.keys():
         print(search_algo, 'has node expansion of', results_from_tests[difficulty][search_algo][0])
         print(search_algo, 'has max queue size of', results_from_tests[difficulty][search_algo][1])
         print('The average amount of nodes expanded is',
-              results_from_tests[difficulty][search_algo][0]/len(results_from_tests[difficulty][search_algo][0]))
+              sum(results_from_tests[difficulty][search_algo][0]) / len(results_from_tests[difficulty][search_algo][0]))
         print('The average amount of maximum queue size is',
-              results_from_tests[difficulty][search_algo][1] / len(results_from_tests[difficulty][search_algo][1]))
+              sum(results_from_tests[difficulty][search_algo][1]) / len(results_from_tests[difficulty][search_algo][1]))
 
-# Problem is you can't average a list over an int. Try summing list up, then taking average
-
+        write_to.write(str(search_algo) + ' has node expansion of ' + str(results_from_tests[difficulty][search_algo][0]) + '\n')
+        write_to.write(str(search_algo) + ' has max queue size of ' + str(results_from_tests[difficulty][search_algo][1]) + '\n')
+        write_to.write('The average amount of nodes expanded is ' + str(sum(results_from_tests[difficulty][search_algo][0]) / len(results_from_tests[difficulty][search_algo][0])) + '\n')
+        write_to.write('The average amount of maximum queue size is ' + str(sum(results_from_tests[difficulty][search_algo][1]) / len(results_from_tests[difficulty][search_algo][1])) + '\n')
+write_to.close()

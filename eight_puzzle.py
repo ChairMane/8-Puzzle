@@ -2,7 +2,6 @@ from queue import PriorityQueue
 import numpy as np
 import copy
 import TreeNode
-import time
 
 class eight_puzzle:
     def __init__(self, initial_state, goal_state, choice):
@@ -147,7 +146,7 @@ class eight_puzzle:
         new_node.parent = current_state
         return new_node
 
-"""if __name__ == '__main__':
+if __name__ == '__main__':
     print('Enter the heuristic you would like to play with:')
     print('1. No heuristic (Uniform Cost Search)')
     print('2. Misplaced Tile Heuristic')
@@ -175,4 +174,5 @@ class eight_puzzle:
         print(results)
         print('To solve this problem the search algorithm expanded a total of', node_amount, 'nodes.')
         print('The maximum number of nodes in the queue at any one time was', max_queue, '.')
-        print('The depth of the goal was', depth)"""
+        print('The depth of the goal was', depth)
+
