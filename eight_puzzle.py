@@ -50,15 +50,14 @@ class eight_puzzle:
                 if (str(child_node.state)) not in seen:
                     frontier.put((child_node.heuristic + child_node.cost, child_node))
 
-# child_node.heuristic + child_node.cost,
-
+    # https://massivealgorithms.blogspot.com/2015/06/how-to-check-if-instance-of-8-puzzle-is.html
     # https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
     def is_solveable(self, current_state):
         inverse_count = 0
         check_state = current_state.flatten()
         for i in range(len(check_state)-1):
             for j in range(i+1, len(check_state)):
-                if check_state[j] > check_state[i]:
+                if check_state[i] and check_state[j] and check_state[i] > check_state[j]:
                     inverse_count += 1
         return not (inverse_count % 2)
 
@@ -207,30 +206,23 @@ print(results)
 print('total amount of time in seconds', total)
 print('amount of nodes is', amount)
 print('max is', max)"""
-
-# What to do next:
-# Finally solved oh boy problem, but takes 11 minutes.
-# Maybe try optimizing.
-# Next thing to do, is make this so that any state can be entered
-# and print out every state
-
 if __name__ == '__main__':
     print('Enter the heuristic you would like to play with:')
     print('1. No heuristic (Uniform Cost Search)')
     print('2. Misplaced Tile Heuristic')
     print('3. Manhattan Heuristic')
-    heuristic_choice = input()
+    heuristic_choice = int(input())
     goal_state = np.array([[1, 2, 3],
                            [4, 5, 6],
                            [7, 8, 0]])
     print('Enter the initial state you would like played')
-    print('Please enter first row: \nFor example: 3, 2, 8')
-    initial_state = np.array(input())
+    print('Please enter first row (space separated): \nFor example: 3 2 8')
+    initial_state = np.array(list(map(int, input().split())))
     print('Please enter second row:')
-    input_array = np.array(input())
+    input_array = np.array(list(map(int, input().split())))
     initial_state = np.vstack((initial_state, input_array))
     print('Please enter third row:')
-    input_array = np.array(input())
+    input_array = np.array(list(map(int, input().split())))
     initial_state = np.vstack((initial_state, input_array))
     
     root = TreeNode(initial_state)
