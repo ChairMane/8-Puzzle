@@ -11,10 +11,12 @@ class eight_puzzle:
 
     def misplaced_heuristic(self, current_state):
         mean = np.sum(current_state == self.goal_state)
-        return (9-mean) - 1
+        return (9-mean)
 
+    # https://stackoverflow.com/questions/39759721/calculating-the-manhattan-distance-in-the-eight-puzzle
     def manhattan_heuristic(self, current_state):
-        print('finish me')
+        copy_state = np.copy(current_state).flatten()
+        return sum(abs((value - 1) % 3 - i % 3) + abs((value - 1)//3 - i//3) for i, value in enumerate(copy_state) if value)
 
     def heuristic(self, current_state):
         if self.choice == 1:
@@ -22,12 +24,12 @@ class eight_puzzle:
         elif self.choice == 2:
             return self.misplaced_heuristic(current_state)
         elif self.choice == 3:
-            return 0
+            return self.manhattan_heuristic(current_state)
         else:
             return 0
 
     # https://dbader.org/blog/priority-queues-in-python
-    def search(self, initial_node, goal):
+    def search(self, initial_node):
         frontier = PriorityQueue()
         initial_node.heuristic = self.heuristic(initial_node.state)
         frontier.put((initial_node.heuristic, initial_node))
@@ -39,13 +41,16 @@ class eight_puzzle:
                 max = frontier.qsize()
             parent_node = frontier.get()
             print('best state to expand: g(n):', parent_node[1].cost, 'h(n):', parent_node[1].heuristic)
-            if np.array_equal(parent_node[1].state, goal):
-                return 'goal found!', amount_of_nodes, max
-            seen.add(parent_node)
+            print(parent_node[1].state)
+            if np.array_equal(parent_node[1].state, self.goal_state):
+                return 'Goal Reached!', amount_of_nodes, max
+            seen.add(str(parent_node[1].state))
             amount_of_nodes += 1
             for child_node in self.make_children(parent_node[1], self.find_blank(parent_node[1])):
-                if (child_node.heuristic + child_node.cost, child_node) not in seen:
+                if (str(child_node.state)) not in seen:
                     frontier.put((child_node.heuristic + child_node.cost, child_node))
+
+# child_node.heuristic + child_node.cost,
 
     # https://math.stackexchange.com/questions/293527/how-to-check-if-a-8-puzzle-is-solvable
     def is_solveable(self, current_state):
@@ -184,20 +189,56 @@ init_state = np.array([[8, 7, 1],
                        [8, 0, 5],
                        [4, 6, 2]])
 """
-goal = np.array([[1, 2, 3],
+"""init_state = np.array([[3, 2, 8],
+                       [4, 5, 6],
+                       [7, 1, 0]])
+"""
+"""goal = np.array([[1, 2, 3],
                  [4, 5, 6],
                  [7, 8, 0]])
 t0 = time.time()
 root = TreeNode(init_state)
-puzzle = eight_puzzle(root, goal, 2)
-results, amount, max = puzzle.search(root, goal)
+puzzle = eight_puzzle(root, goal, 3)
+#print(puzzle.misplaced_heuristic(init_state))
+results, amount, max = puzzle.search(root)
 t1 = time.time()
 total = t1-t0
 print(results)
 print('total amount of time in seconds', total)
 print('amount of nodes is', amount)
-print('max is', max)
+print('max is', max)"""
 
 # What to do next:
-# Maybe the costs are getting put into the priority queue incorrectly.
-# check out what the costs are
+# Finally solved oh boy problem, but takes 11 minutes.
+# Maybe try optimizing.
+# Next thing to do, is make this so that any state can be entered
+# and print out every state
+
+if __name__ == '__main__':
+    print('Enter the heuristic you would like to play with:')
+    print('1. No heuristic (Uniform Cost Search)')
+    print('2. Misplaced Tile Heuristic')
+    print('3. Manhattan Heuristic')
+    heuristic_choice = input()
+    goal_state = np.array([[1, 2, 3],
+                           [4, 5, 6],
+                           [7, 8, 0]])
+    print('Enter the initial state you would like played')
+    print('Please enter first row: \nFor example: 3, 2, 8')
+    initial_state = np.array(input())
+    print('Please enter second row:')
+    input_array = np.array(input())
+    initial_state = np.vstack((initial_state, input_array))
+    print('Please enter third row:')
+    input_array = np.array(input())
+    initial_state = np.vstack((initial_state, input_array))
+    
+    root = TreeNode(initial_state)
+    puzzle = eight_puzzle(root, goal_state, heuristic_choice)
+    if not puzzle.is_solveable(initial_state):
+        print('This problem\n', initial_state, '\nis unsolvable. \nTry again.')
+    else:
+        results, node_amount, max_queue = puzzle.search(root)
+        print(results)
+        print('Amount of nodes expanded:', node_amount)
+        print('Maximum size of queue:', max_queue)
