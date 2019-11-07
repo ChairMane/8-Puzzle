@@ -1,0 +1,74 @@
+Difficulty for this level is trivial
+
+1 has node expansion of [1]
+1 has max queue size of [1]
+The average amount of nodes expanded is 1.0
+The average amount of maximum queue size is 1.0
+2 has node expansion of [1]
+2 has max queue size of [1]
+The average amount of nodes expanded is 1.0
+The average amount of maximum queue size is 1.0
+3 has node expansion of [1]
+3 has max queue size of [1]
+The average amount of nodes expanded is 1.0
+The average amount of maximum queue size is 1.0
+
+Difficulty for this level is very easy
+
+1 has node expansion of [3, 4]
+1 has max queue size of [3, 5]
+The average amount of nodes expanded is 3.5
+The average amount of maximum queue size is 4.0
+2 has node expansion of [2, 2]
+2 has max queue size of [3, 3]
+The average amount of nodes expanded is 2.0
+The average amount of maximum queue size is 3.0
+3 has node expansion of [2, 2]
+3 has max queue size of [3, 3]
+The average amount of nodes expanded is 2.0
+The average amount of maximum queue size is 3.0
+
+Difficulty for this level is easy
+
+1 has node expansion of [4, 37, 10, 12, 11]
+1 has max queue size of [4, 28, 8, 10, 10]
+The average amount of nodes expanded is 14.8
+The average amount of maximum queue size is 12.0
+2 has node expansion of [3, 7, 3, 4, 4]
+2 has max queue size of [3, 7, 5, 4, 4]
+The average amount of nodes expanded is 4.2
+The average amount of maximum queue size is 4.6
+3 has node expansion of [3, 6, 3, 4, 4]
+3 has max queue size of [3, 7, 5, 4, 4]
+The average amount of nodes expanded is 4.0
+The average amount of maximum queue size is 4.6
+
+Difficulty for this level is doable
+
+1 has node expansion of [29, 16, 6236, 538, 189]
+1 has max queue size of [18, 16, 4169, 361, 132]
+The average amount of nodes expanded is 1401.6
+The average amount of maximum queue size is 939.2
+2 has node expansion of [5, 5, 312, 28, 10]
+2 has max queue size of [4, 4, 198, 21, 8]
+The average amount of nodes expanded is 72.0
+The average amount of maximum queue size is 47.0
+3 has node expansion of [5, 5, 58, 13, 9]
+3 has max queue size of [4, 4, 37, 12, 8]
+The average amount of nodes expanded is 18.0
+The average amount of maximum queue size is 13.0
+
+Difficulty for this level is oh boy
+
+1 has node expansion of [142021, 11026, 519141, 519140, 52123]
+1 has max queue size of [59838, 7236, 73069, 73069, 25122]
+The average amount of nodes expanded is 248690.2
+The average amount of maximum queue size is 47666.8
+2 has node expansion of [6761, 649, 178511, 178889, 2639]
+2 has max queue size of [3845, 403, 42513, 42526, 1579]
+The average amount of nodes expanded is 73489.8
+The average amount of maximum queue size is 18173.2
+3 has node expansion of [591, 128, 7426, 7478, 320]
+3 has max queue size of [367, 85, 3921, 3969, 202]
+The average amount of nodes expanded is 3188.6
+The average amount of maximum queue size is 1708.8

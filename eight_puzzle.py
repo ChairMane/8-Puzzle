@@ -147,6 +147,9 @@ class eight_puzzle:
         return new_node
 
 if __name__ == '__main__':
+    print('Welcome to Chris Daniels\' 8-Puzzle solver.')
+    print('Type \'1\' to use a default puzzle, or \'2\' to enter your own puzzle.')
+    puzzle_choice = int(input())
     print('Enter the heuristic you would like to play with:')
     print('1. No heuristic (Uniform Cost Search)')
     print('2. Misplaced Tile Heuristic')
@@ -155,15 +158,20 @@ if __name__ == '__main__':
     goal_state = np.array([[1, 2, 3],
                            [4, 5, 6],
                            [7, 8, 0]])
-    print('Enter the initial state you would like played')
-    print('Please enter first row (space separated): \nFor example: 3 2 8')
-    initial_state = np.array(list(map(int, input().split())))
-    print('Please enter second row:')
-    input_array = np.array(list(map(int, input().split())))
-    initial_state = np.vstack((initial_state, input_array))
-    print('Please enter third row:')
-    input_array = np.array(list(map(int, input().split())))
-    initial_state = np.vstack((initial_state, input_array))
+    if puzzle_choice == 1:
+        initial_state = np.array([[1, 2, 3],
+                                  [0, 4, 5],
+                                  [7, 8, 6]])
+    elif puzzle_choice == 2:
+        print('Enter the initial state you would like played')
+        print('Please enter first row (space separated): \nFor example: 3 2 8')
+        initial_state = np.array(list(map(int, input().split())))
+        print('Please enter second row (space separated):')
+        input_array = np.array(list(map(int, input().split())))
+        initial_state = np.vstack((initial_state, input_array))
+        print('Please enter third row (space separated):')
+        input_array = np.array(list(map(int, input().split())))
+        initial_state = np.vstack((initial_state, input_array))
     
     root = TreeNode.TreeNode(initial_state)
     puzzle = eight_puzzle(root, goal_state, heuristic_choice)

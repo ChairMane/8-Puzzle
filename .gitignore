@@ -7,7 +7,8 @@ __pycache__/
 *.doc
 # C extensions
 *.so
-
+charts/
+*.png
 # Distribution / packaging
 .Python
 build/
